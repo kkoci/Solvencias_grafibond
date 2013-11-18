@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_solvencia_solvencia,solvencia.solvencia,model_solvencia_solvencia,compra_grafibond.group_purchase_usuario,1,1,1,1
+access_solvencia_solvencia_manager,solvencia.solvencia manager,model_solvencia_solvencia,compra_grafibond.group_purchase_jefe,1,0,0,0
+access_solvencia_solvencia_stock_manager,solvencia.solvencia,model_solvencia_solvencia,stock.group_stock_manager,1,0,1,0

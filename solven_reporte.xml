@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report auto="True" id="report_solven_reporte" model="solvencia.solvencia" name="solven.reporte" rml="solvencia2/report/solven_reporte.rml" string="Reporte Solvencia"/>
+    </data>
+</openerp>

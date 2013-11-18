@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+	<!-- Vista de busqueda para Solvencias -->
+
+	<record model="ir.ui.view" id="solvencia_search">
+		<field name="name">solvencia.search</field>
+		<field name="model">solvencia.solvencia</field>
+		<field name="type">search</field>
+		<field name="arch" type="xml">
+		<search string="Buscar solvencia" >
+			<field name="ins_em" string="Institucion emisora" />
+			<field name="Fecha_de_Vence" string="Fecha de Vencimiento"/>
+			<field name="nsol" string="Numero de solvencia" />
+		</search>
+		</field>
+	</record>
+	
+	<!-- Filtro para Solvencias -->
+	
+	<record id="solvencia_search" model="ir.ui.view">
+    <field name="name">solvencia.solvencia.select</field>
+    <field name="model">solvencia.solvencia</field>
+    <field name="arch" type="xml">
+        <search string="Solvencias">
+            <field name="Fecha_de_Emision" string="Solvencias Activas" filter_domain="[('Fecha_de_Emision','>=',((context_today()-datetime.timedelta(days=30)).strftime('%%Y-%%m-%%d')))]"/>
+            <separator/>
+            <filter string="Solvencias Activas" name="type_date" domain="[('Fecha_de_Emision','>=',((context_today()-datetime.timedelta(days=30)).strftime('%%Y-%%m-%%d')))]" help="..."/>
+            <separator/>
+            <group expand="0" string="Agrupa los filtros por...">
+                <filter string="Vencimiento..." domain="[]" context="{'group_by' : 'Fecha_de_Vence'}" />
+                <filter string="Numero de Solvencia..." domain="[]" context="{'group_by': 'nsol'}"/>
+				<filter string="Institucion Emisora..." domain="[]" context="{'group_by': 'ins_em'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+	
+	<!-- Vista de arbol para Solvencias -->
+	
+	<record id="solvencia_solvencia_tree" model="ir.ui.view">
+		<field name="name">solvencia.result.tree.new</field>
+		<field name="model">solvencia.solvencia</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Crear Solvencia" >
+				<field name="nsol" />
+				<field name="ins_em" />
+				<field name="Fecha_de_Emision" />
+				<field name="Fecha_de_Vence" />
+				<field name="company_id" />
+			</tree>
+		</field>
+	</record>
+
+	<!--Formulario para Solvencias-->
+	
+	<record id="solvencia_form" model="ir.ui.view">
+		<field name="name">solvencia.result.form</field>
+		<field name="model">solvencia.solvencia</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Introducir los datos" >
+				<field name="nsol" />
+				<field name="Fecha_de_Emision" />
+				<field name="Fecha_de_Vence" />
+				<field name="company_id" />
+				<field name="ins_em" />
+				<field name="cadidate" />
+			    <field name="observa" />
+			</form>
+		</field>
+	</record>
+	
+	<!-- Acciones de Solvencias-->
+	
+	<record id="action_solvencia_solvencia" model="ir.actions.act_window">
+		<field name="name">Solvencias</field>
+		<field name="res_model">solvencia.solvencia</field>
+		<field name="view_type">form</field>
+		<field name="context">{"search_default_type_date":1}</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="solvencia_solvencia_tree"/>
+			<field name="nsol" />
+			<field name="Fecha_de_Emision" />
+			<field name="Fecha_de_Vence" />
+			<field name="ins_em" />
+			<field name="cadidate" />
+			<field name="observa" />
+	</record>
+	
+	
+	
+	<!--Solvencia Menu-->
+	
+	<menuitem id="solvencia_parent" name="Solvencias" icon="terp-partner"/>
+	<menuitem id="menu_solvencia_parent" name="Manejo de las solvencias" parent="compra_grafibond.menu_procurement_management"></menuitem>
+	<menuitem action="action_solvencia_solvencia" id="Solvencias" parent="compra_grafibond.menu_procurement_management" string="Result"/>
+	
+	</data>
+</openerp>
